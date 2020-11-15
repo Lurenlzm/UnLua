@@ -8,7 +8,7 @@ local BP_PlayerController_C = Class()
 function BP_PlayerController_C:ReceiveBeginPlay()
 	local Widget = UE4.UWidgetBlueprintLibrary.Create(self, UE4.UClass.Load("/Game/Core/UI/UMG_Main"))
 	Widget:AddToViewport()
-
+	
 	self.ForwardVec = UE4.FVector()
 	self.RightVec = UE4.FVector()
 	self.ControlRot = UE4.FRotator()
@@ -22,6 +22,7 @@ end
 function BP_PlayerController_C:Turn(AxisValue)
 	self:AddYawInput(AxisValue)
 end
+
 
 function BP_PlayerController_C:TurnRate(AxisValue)
 	local DeltaSeconds = UE4.UGameplayStatics.GetWorldDeltaSeconds(self)

@@ -14,6 +14,8 @@ local print = UEPrint
 
 _NotExist = _NotExist or {}
 local NotExist = _NotExist
+package.cpath = package.cpath .. ";F:/Lua/dev/LuaPanda/luasocketBin/win/x64/?.dll";
+require("LuaPanda").start("127.0.0.1",8818);
 
 local function Index(t, k)
 	local mt = getmetatable(t)
@@ -68,6 +70,19 @@ local function Class(super_name)
     return new_class
 end
 
+local function RegClass(class, super_name)
+
+	local new_class = class
+	local super_class = nil
+	if super_name ~= nil then
+		super_class = require(super_name)
+	end
+
+	new_class.__index = Index
+	new_class.__newindex = NewIndex
+	new_class.Super = super_class
+end
+
 local function global_index(t, k)
 	if type(k) == "string" then
 		local s = str_sub(k, 1, 1)
@@ -95,3 +110,4 @@ _G.print = print
 _G.Index = Index
 _G.NewIndex = NewIndex
 _G.Class = Class
+_G.RegisterUeClass = RegClass

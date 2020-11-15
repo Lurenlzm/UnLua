@@ -226,6 +226,12 @@ void FLuaContext::CreateState()
 
         FUnLuaDelegates::OnPreStaticallyExport.Broadcast();
 
+		const char* msg = nullptr;
+		if (luaL_dostring(L, "local tl = require('Teal.tl'); tl.loader()") != 0)
+		{
+			msg = lua_tostring(L, -1);
+		}
+
         RegisterClass(L, "UClass", "UObject");                      // register base class
 
         // register statically exported classes
